@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "${description}",
+  "authors": ["${author}"],
+  "contact": {
+    "homepage": "${websiteUrl}",
+    "issues": "${issueTrackerUrl}"
+  },
+  "license": "${license}",
+  "icon": "assets/examplemod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["straywave.minecraft.examplemod.fabric.Entrypoint"],
+    "client": ["straywave.minecraft.examplemod.fabric.EntrypointClient"],
+    "server": ["straywave.minecraft.examplemod.fabric.EntrypointDedicatedServer"]
+  },
+  "mixins": [
+    "examplemod.mixins.json",
+    "examplemod.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabric": ">=${fabricVersion}",
+    "minecraft": "${minecraftVersion}"
+  }
+}
