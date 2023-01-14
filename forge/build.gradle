@@ -2,10 +2,10 @@ plugins { id "com.github.johnrengelman.shadow" version "7.1.2" }
 architectury { forge() }
 
 loom {
-    mixin { defaultRefmapName = "examplemod.forge.refmap.json" }
+    mixin { defaultRefmapName = "immersivesnow.forge.refmap.json" }
     forge {
-        mixinConfig "examplemod.forge.mixins.json"
-        mixinConfig "examplemod.mixins.json"
+        // mixinConfig "immersivesnow.forge.mixins.json"
+        // mixinConfig "immersivesnow.mixins.json"
     }
 }
 
@@ -16,8 +16,10 @@ configurations {
     runtimeClasspath.extendsFrom common
 }
 
+repositories { maven { url "https://cursemaven.com/" } }
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft}-${parent.props.forge}"
+    modApi "curse.maven:sereneseasons-291874:${parent.props.sereneseasons}-api-${parent.props.sereneseasonsapi}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

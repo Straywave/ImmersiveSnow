@@ -10,16 +10,13 @@
     "issues": "${issueTrackerUrl}"
   },
   "license": "${license}",
-  "icon": "assets/examplemod/icon.png",
+  "icon": "assets/immersivesnow/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": ["straywave.minecraft.examplemod.fabric.Entrypoint"],
-    "client": ["straywave.minecraft.examplemod.fabric.EntrypointClient"],
-    "server": ["straywave.minecraft.examplemod.fabric.EntrypointDedicatedServer"]
+    "main": ["straywave.minecraft.immersivesnow.fabric.Entrypoint"]
   },
   "mixins": [
-    "examplemod.mixins.json",
-    "examplemod.fabric.mixins.json"
+    "immersivesnow.fabric.mixins.json"
   ],
   "depends": {
     "fabric": ">=${fabricVersion}",

@@ -1,51 +1,30 @@
-Straywave's Mod Template
-========================
+Immersive Atmosphere
+====================
 
-A template that lets you build Minecraft mods for multiple versions and multiple loaders at the same time. Note that
-Architectury API is *not* included, the only default dependency is Fabric API (on Fabric, obviously).
+Recalculates snow upon entering a chunk, a great companion to season mods!
 
-## Usage
+The only dependency is Fabric API (on Fabric). This mod does not specifically link into other season mods, you can even
+use it without one!
 
-You should know how to use Architectury before using this. In short, Architectury splits up your codebase between 3
-sub-projects, `common`, `fabric`, `forge`. Common is where the loader-agnostic code is, Fabric and Forge contain code
-for the respective mod loader.
+The following mods are supported:
 
-Obviously, not all logic is the same across versions, so that's where Manifold comes in.
+- [Serene Seasons (Forge)][1]
+  - A special hook is used as it does not actually modify the biome temperature method but rather modifies all vanilla code that uses it.
+- [Fabric Seasons (Fabric)][2]
+  - Full compatibility out of the box without special tricks
 
-[Manifold][1] is a neat little Gradle plugin that, among other things, adds a preprocessor to Java. It brings the C-like
-syntax of `#define`, `#if`, `#elif`, and `#endif` to Java.
+Do note that snow recalculation causes some lag if the blocks need to be changed. Combine this mod with performance mods
+for best results. Further performance improvements are coming in the future.
 
-By default, there are 2 versions, 1.16.5 and 1.18.2. You can write version-specific code like so:
+### Future Plans
 
-```c
-#if MC_1_16_5
-System.out.println("Hello, Minecraft 1.16!");
-#elif MC_1_18_2
-System.out.println("Hello, Minecraft 1.18!");
-#endif
-```
+- (Optional) Integration with [Hourglass][3] on Forge to change day duration to match season from [Serene Seasons][1].
 
-So, in short, after cloning this repo:
+### Acknowledgements
 
-1. Install Manifold plugin in IntelliJ IDEA (other IDEs aren't supported well) and restart IDEA.
-2. Run `./gradlew genSources` to decompile Minecraft and have the sources ready.
-3. Fill in the blanks in `gradle.properties`, under the "Key mod properties".
-4. Start coding!
+This mod is a remake of my private mod BetterSereneSeasons, which was originally a 1.19.2 Forge remake of [Serene Tweaks][4].
 
-Some general usage guidance:
-- Don't touch `build.properties`. It is auto generated and should be synced with current mappings.
-- Use `-Pminecraft=1.16.5` or `-Pminecraft=1.18.2` to specify the target version on the command line.
-
-## Adding a new version
-
-1. Copy-paste one of the existing files in `props/`, name it according to the version.
-2. Fill it in with all the latest versions of fabric, forge, etc.
-3. Specify it as your Minecraft version in `gradle.properties` and/or `-Pminecraft`
-4. Run `./gradlew genSources` to generate sources for the new version.
-5. Voila!
-
-## Building everything
-
-Run `build.sh` to build the final JARs. Outputs will be in `forge/build/libs` and `fabric/build/libs`.
-
-[1]: http://manifold.systems
+[1]: https://curseforge.com/minecraft/mc-mods/serene-seasons
+[2]: https://curseforge.com/minecraft/mc-mods/fabric-seasons
+[3]: https://www.curseforge.com/minecraft/mc-mods/hourglass
+[4]: https://github.com/FIREdog5/SereneTweaks
