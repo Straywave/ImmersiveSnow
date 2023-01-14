@@ -1,5 +1,5 @@
-Immersive Atmosphere
-====================
+Immersive Snow
+==============
 
 Recalculates snow upon entering a chunk, a great companion to season mods!
 
