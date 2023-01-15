@@ -1,13 +1,10 @@
 {
-  "required": true,
+  "parent": "immersivesnow.mixins.json",
   "package": "straywave.minecraft.immersivesnow.fabric.mixin",
-  "minVersion": "0.7",
   "refmap": "immersivesnow.fabric.refmap.json",
-  "compatibilityLevel": "JAVA_8",
+  "client": [
+  ],
   "mixins": [
     "PlayerListMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+  ]
 }

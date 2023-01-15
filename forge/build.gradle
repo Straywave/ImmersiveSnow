@@ -20,6 +20,7 @@ repositories { maven { url "https://cursemaven.com/" } }
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft}-${parent.props.forge}"
     modApi "curse.maven:sereneseasons-291874:${parent.props.sereneseasons}-api-${parent.props.sereneseasonsapi}"
+    modApi "curse.maven:hourglass-511172:${parent.props.hourglass}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

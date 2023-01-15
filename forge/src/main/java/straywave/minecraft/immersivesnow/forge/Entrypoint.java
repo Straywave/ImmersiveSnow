@@ -10,7 +10,8 @@ public class Entrypoint {
     public Entrypoint() {
         ImmersiveSnow.init();
         MinecraftForge.EVENT_BUS.register(EventListener.class);
-        if (ModList.get().isLoaded("sereneseasons")) {
+        
+        if (ModList.get().isLoaded("sereneseasons") && ModList.get().isLoaded("hourglass")) {
 
         }
     }

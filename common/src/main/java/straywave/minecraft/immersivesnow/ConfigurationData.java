@@ -2,11 +2,17 @@ package straywave.minecraft.immersivesnow;
 
 public class ConfigurationData {
     /** How many chunks should be processed per tick. */
-    int chunksToProcessPerTick = 6;
+    public int chunksToProcessPerTick = 6;
 
     /** How many chunks should be added to processing queue when a player joins. */
-    int playerJoinRadius = 7;
+    public int playerJoinRadius = 7;
 
     /** How long to wait before processing the same chunk (in seconds). */
-    long memoryDuration = 600;
+    public long memoryDuration = 600;
+
+    /**
+     * Controls whether the Hourglass/Serene Seasons integration is enabled.
+     * NOTE: It will overwrite Hourglass daySpeed and nightSpeed settings!
+     */
+    public boolean enableHourglassChangingDayNightCycle = true;
 }

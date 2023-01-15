@@ -7,6 +7,11 @@ import net.minecraft.world.level.biome.Biome;
 
 public class ModHooks {
     @ExpectPlatform
+    public static void onTick(Level level) {
+        /* no-op */
+    }
+
+    @ExpectPlatform
     public static boolean isTemperatureCold(Level level, Biome biome, BlockPos pos) {
         return _isTemperatureCold(level, biome, pos);
     }
