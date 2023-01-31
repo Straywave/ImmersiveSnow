@@ -15,4 +15,10 @@ public class ConfigurationData {
      * NOTE: It will overwrite Hourglass daySpeed and nightSpeed settings!
      */
     public boolean enableHourglassChangingDayNightCycle = true;
+
+    /**
+     * Scalar multiplier for time speed with Hourglass integration.
+     * With value of 2 a day will be 2 times faster, and for value of 0.5 it will be 2 time slower than usual.
+     */
+    public double hourGlassSpeedMultiplier = 1;
 }
