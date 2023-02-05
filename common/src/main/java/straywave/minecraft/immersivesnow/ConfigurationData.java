@@ -17,8 +17,16 @@ public class ConfigurationData {
     public boolean enableHourglassChangingDayNightCycle = true;
 
     /**
-     * Scalar multiplier for time speed with Hourglass integration.
-     * With value of 2 a day will be 2 times faster, and for value of 0.5 it will be 2 time slower than usual.
+     * Scalar multiplier for day speed with Hourglass integration.
+     * For example, with a value of 2, the daytime will pass twice as fast.
+     * With a value of 0.5, the daytime will pass twice as slow.
      */
-    public double hourglassSpeedMultiplier = 1;
+    public double hourglassDaySpeed = 1;
+
+    /**
+     * Scalar multiplier for night speed with Hourglass integration.
+     * For example, with a value of 2, the nighttime will pass twice as fast.
+     * With a value of 0.5, the nighttime will pass twice as slow.
+     */
+    public double hourglassNightSpeed = 1;
 }

@@ -12,29 +12,6 @@ public class HourglassHook {
 
     public static double getDaySpeedForSeason(Season.SubSeason season) {
         switch (season) {
-            case EARLY_SPRING: return 0.9230769230769231;
-            case MID_SPRING: return 1.112948717948718;
-            case LATE_SPRING: return 1.282457264957265;
-
-            case EARLY_SUMMER: return 1.3505128205128205;
-            case MID_SUMMER: return 1.2827991452991454;
-            case LATE_SUMMER: return 1.1210897435897436;
-
-            case EARLY_AUTUMN: return 0.9230769230769231;
-            case MID_AUTUMN: return 0.7672863247863249;
-            case LATE_AUTUMN: return 0.5993162393162393;
-
-            case EARLY_WINTER: return 0.5388247863247864;
-            case MID_WINTER: return 0.6177777777777778;
-            case LATE_WINTER: return 0.7827777777777778;
-        }
-
-        // This shouldn't be possible
-        throw new AssertionError();
-    }
-
-    public static double getNightSpeedForSeason(Season.SubSeason season) {
-        switch (season) {
             case EARLY_SPRING: return 1.0909090909090908;
             case MID_SPRING: return 0.8665151515151515;
             case LATE_SPRING: return 0.6661868686868686;
@@ -56,6 +33,29 @@ public class HourglassHook {
         throw new AssertionError();
     }
 
+    public static double getNightSpeedForSeason(Season.SubSeason season) {
+        switch (season) {
+            case EARLY_SPRING: return 0.9230769230769231;
+            case MID_SPRING: return 1.112948717948718;
+            case LATE_SPRING: return 1.282457264957265;
+
+            case EARLY_SUMMER: return 1.3505128205128205;
+            case MID_SUMMER: return 1.2827991452991454;
+            case LATE_SUMMER: return 1.1210897435897436;
+
+            case EARLY_AUTUMN: return 0.9230769230769231;
+            case MID_AUTUMN: return 0.7672863247863249;
+            case LATE_AUTUMN: return 0.5993162393162393;
+
+            case EARLY_WINTER: return 0.5388247863247864;
+            case MID_WINTER: return 0.6177777777777778;
+            case LATE_WINTER: return 0.7827777777777778;
+        }
+
+        // This shouldn't be possible
+        throw new AssertionError();
+    }
+
     public static void onTick(Level level) {
         ticker++;
 
@@ -64,10 +64,9 @@ public class HourglassHook {
 
             Season.SubSeason currentSeason = SeasonHelper.getSeasonState(level).getSubSeason();
             if (currentSeason != lastSeason) {
-                double multiplier = Configuration.data.hourglassSpeedMultiplier;
                 lastSeason = currentSeason;
-                HourglassConfig.SERVER_CONFIG.daySpeed.set(multiplier * getDaySpeedForSeason(currentSeason));
-                HourglassConfig.SERVER_CONFIG.nightSpeed.set(multiplier * getNightSpeedForSeason(currentSeason));
+                HourglassConfig.SERVER_CONFIG.daySpeed.set(Configuration.data.hourglassDaySpeed * getDaySpeedForSeason(currentSeason));
+                HourglassConfig.SERVER_CONFIG.nightSpeed.set(Configuration.data.hourglassNightSpeed * getNightSpeedForSeason(currentSeason));
             }
         }
     }
