@@ -4,6 +4,7 @@ import net.lavabucket.hourglass.config.HourglassConfig;
 import net.minecraft.world.level.Level;
 import sereneseasons.api.season.Season;
 import sereneseasons.api.season.SeasonHelper;
+import straywave.minecraft.immersivesnow.Configuration;
 
 public class HourglassHook {
     private static int ticker = 0;
@@ -63,9 +64,10 @@ public class HourglassHook {
 
             Season.SubSeason currentSeason = SeasonHelper.getSeasonState(level).getSubSeason();
             if (currentSeason != lastSeason) {
+                double multiplier = Configuration.data.hourGlassSpeedMultiplier;
                 lastSeason = currentSeason;
-                HourglassConfig.SERVER_CONFIG.daySpeed.set(getDaySpeedForSeason(currentSeason));
-                HourglassConfig.SERVER_CONFIG.nightSpeed.set(getNightSpeedForSeason(currentSeason));
+                HourglassConfig.SERVER_CONFIG.daySpeed.set(multiplier * getDaySpeedForSeason(currentSeason));
+                HourglassConfig.SERVER_CONFIG.nightSpeed.set(multiplier * getNightSpeedForSeason(currentSeason));
             }
         }
     }
