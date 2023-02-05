@@ -22,7 +22,8 @@ The following season mods are supported:
   - Full compatibility out of the box without special tricks
 
 _**Hourglass integration requires Forge and Serene Seasons.**_ It will overwrite your `daySpeed` and `nightSpeed` to
-match the current season. If you want, you can disable it in the configuration. (Hourglass for 1.16.5 is on CurseForge)
+match the current season, however you can set a `hourglassDaySpeed` / `hourglassNightSpeed` in the configuration file if
+you wish. If you want, you can disable it entirely in the configuration. (Hourglass for 1.16.5 is on CurseForge)
 
 ### Performance
 
