@@ -64,7 +64,7 @@ public class HourglassHook {
 
             Season.SubSeason currentSeason = SeasonHelper.getSeasonState(level).getSubSeason();
             if (currentSeason != lastSeason) {
-                double multiplier = Configuration.data.hourGlassSpeedMultiplier;
+                double multiplier = Configuration.data.hourglassSpeedMultiplier;
                 lastSeason = currentSeason;
                 HourglassConfig.SERVER_CONFIG.daySpeed.set(multiplier * getDaySpeedForSeason(currentSeason));
                 HourglassConfig.SERVER_CONFIG.nightSpeed.set(multiplier * getNightSpeedForSeason(currentSeason));

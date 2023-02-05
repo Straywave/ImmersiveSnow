@@ -8,6 +8,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import straywave.minecraft.immersivesnow.ImmersiveSnowEvents;
 
 #if MC_1_19_2
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 #endif
 
+@Mod.EventBusSubscriber
 public class EventListener {
     @SubscribeEvent
     public static void onServerStarted(#if MC_1_16_5 FMLServerStartedEvent #else ServerStartedEvent #endif event) {

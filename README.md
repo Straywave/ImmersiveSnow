@@ -1,5 +1,9 @@
+<img src="common/src/main/resources/assets/immersivesnow/iconhq.png" width="128" align="right" />
+
 Immersive Snow
 ==============
+
+[![Mod Version](https://shields.io/modrinth/v/immersive-snow)](https://modrinth.com/mod/immersive-snow)
 
 Small tweaks that add to Minecraft's Winter theme. Intended for use with a season mod.
 
