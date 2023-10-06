@@ -7,21 +7,26 @@ import net.minecraft.world.level.biome.Biome;
 
 public class ModHooks {
     @ExpectPlatform
-    public static void onTick(Level level) {
-        /* no-op */
+    public static boolean seasonModLoaded() {
+        return false;
     }
 
     @ExpectPlatform
-    public static boolean isTemperatureCold(Level level, Biome biome, BlockPos pos) {
-        return _isTemperatureCold(level, biome, pos);
+    public static boolean snowRealMagicLoaded() {
+        return false;
     }
 
-    // Base implementation to be overriden
-    public static boolean _isTemperatureCold(Level level, Biome biome, BlockPos pos) {
-        #if MC_1_16_5
-        return biome.getTemperature(pos) < 0.15F;
-        #else
+    @ExpectPlatform
+    public static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
+        return false;
+    }
+
+    @ExpectPlatform
+    public static boolean coldEnoughToSnow(Level level, Biome biome, BlockPos pos) {
         return biome.coldEnoughToSnow(pos);
-        #endif
+    }
+
+    @ExpectPlatform
+    public static void onTick(Level level) {
     }
 }

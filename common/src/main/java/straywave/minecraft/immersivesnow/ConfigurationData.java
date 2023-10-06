@@ -1,13 +1,19 @@
 package straywave.minecraft.immersivesnow;
 
 public class ConfigurationData {
-    /** How many chunks should be processed per tick. */
-    public int chunksToProcessPerTick = 6;
+    /**
+     * How many chunks should be processed per tick.
+     */
+    public int chunksToProcessPerTick = 2;
 
-    /** How many chunks should be added to processing queue when a player joins. */
+    /**
+     * How many chunks should be added to processing queue when a player joins.
+     */
     public int playerJoinRadius = 7;
 
-    /** How long to wait before processing the same chunk (in seconds). */
+    /**
+     * How long to wait before processing the same chunk (in seconds).
+     */
     public long memoryDuration = 600;
 
     /**

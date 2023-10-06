@@ -16,7 +16,10 @@ public class Memory {
         long rememberedTime = data.getOrDefault(chunkPos, 0L);
         long currentTime = Instant.now().getEpochSecond();
         long difference = currentTime - rememberedTime;
-        return difference >= Configuration.data.memoryDuration;
+
+        boolean hasForgotten = difference >= Configuration.data.memoryDuration;
+        if (hasForgotten) data.remove(chunkPos); // Clear out so memory doesn't grow forever
+        return hasForgotten;
     }
 
     public static void erase() {
