@@ -14,16 +14,14 @@ public class ImmersiveSnowEvents {
     }
 
     public static void onPlayerLoggedIn(ServerPlayer player) {
-        ImmersiveSnow.LOGGER.info("Player logged in!");
 //        if (!player.level().dimensionType().natural()) return;
 
         ChunkPos chunkPos = player.chunkPosition();
         int radius = Configuration.data.playerJoinRadius;
 
-        for (int x = chunkPos.x - radius; x < radius; x++) {
-            for (int z = chunkPos.z - radius; z < radius; z++) {
-                ImmersiveSnow.LOGGER.info(String.format("Player pushing chunk %s %s", x, z));
-                Utils.tryAddToQueue(new ChunkPos(x, z));
+        for (int offX = -radius; offX < radius; offX++) {
+            for (int offZ = -radius; offZ < radius; offZ++) {
+                Utils.tryAddToQueue(new ChunkPos(chunkPos.x + offX, chunkPos.z + offZ));
             }
         }
     }

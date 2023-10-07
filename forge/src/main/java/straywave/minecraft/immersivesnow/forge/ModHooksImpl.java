@@ -15,12 +15,10 @@ public class ModHooksImpl {
     private static final boolean HOURGLASS = ModList.get().isLoaded("hourglass");
 
     public static boolean seasonModLoaded() {
-        ImmersiveSnow.LOGGER.error(String.format("Serene Seasons loaded: %s", SERENE_SEASONS));
         return SERENE_SEASONS;
     }
 
     public static boolean snowRealMagicLoaded() {
-        ImmersiveSnow.LOGGER.error(String.format("Snow Real Magic loaded: %s", SNOW_REAL_MAGIC));
         return SNOW_REAL_MAGIC;
     }
 

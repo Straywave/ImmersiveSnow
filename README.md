@@ -28,11 +28,9 @@ you wish. If you want, you can disable it entirely in the configuration. (Hourgl
 
 ### Performance
 
-In 1.1.0, performance was significantly increased by only updating blocks when they need an update (i.e. grass blocks).
-Also, call to `Biome.shouldFreeze` has been removed, as it was a major source of lag and always returned false anyway.
-
-As a coarse benchmark (totally unscientific), after flying around and generating chunks in Creative, the mod only used
-0.99% of the Server Thread according to Spark Profiler.
+Some performance degradations are a given, since the mod has to change 16x16=256 blocks per chunk upon every chunk
+loading. If you see a noticeable performance impact, please file an issue in the tracker with a Spark profiler report
+for investigation.
 
 ### Acknowledgements
 

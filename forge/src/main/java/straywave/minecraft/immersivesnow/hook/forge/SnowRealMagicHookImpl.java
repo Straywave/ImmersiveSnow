@@ -2,13 +2,12 @@ package straywave.minecraft.immersivesnow.hook.forge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import snownee.snow.CoreModule;
-import snownee.snow.block.SnowVariant;
+import snownee.snow.block.*;
 
-#if MC_1_18_2
-import snownee.snow.block.ModSnowLayerBlock;
-#else
+#if !MC_1_18_2
 import snownee.snow.Hooks;
 #endif
 
@@ -30,7 +29,8 @@ public class SnowRealMagicHookImpl {
     }
 
     public static boolean canMelt(BlockState state) {
-        return state.is(CoreModule.TILE_BLOCK.get());
+        Block block = state.getBlock();
+        return state.is(CoreModule.TILE_BLOCK.get()) || block instanceof SnowSlabBlock || block instanceof SnowStairsBlock || block instanceof SnowWallBlock || block instanceof SnowFenceBlock || block instanceof SnowFenceGateBlock;
     }
 
     public static void melt(ServerLevel level, BlockPos pos, BlockState state) {
