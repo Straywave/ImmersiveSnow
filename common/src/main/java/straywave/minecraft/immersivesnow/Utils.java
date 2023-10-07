@@ -9,7 +9,7 @@ public class Utils {
     static void tryAddToQueue(ChunkPos chunkPos) {
         if (Memory.hasForgotten(chunkPos)) {
             Memory.remember(chunkPos);
-            ImmersiveSnow.queue.add(chunkPos);
+            ImmersiveSnow.queue.add(new ImmersiveSnow.QueueEntry(chunkPos, 0));
         }
     }
 }

@@ -17,9 +17,10 @@ Features:
 The following season mods are supported:
 
 - [Serene Seasons (Forge)][1]
-  - A special hook is used as it does not actually modify the biome temperature method but rather modifies all vanilla code that uses it.
+    - A special hook is used as it does not actually modify the biome temperature method but rather modifies all vanilla
+      code that uses it.
 - [Fabric Seasons (Fabric)][2]
-  - Full compatibility out of the box without special tricks
+    - Full compatibility out of the box without special tricks
 
 _**Hourglass integration requires Forge and Serene Seasons.**_ It will overwrite your `daySpeed` and `nightSpeed` to
 match the current season, however you can set a `hourglassDaySpeed` / `hourglassNightSpeed` in the configuration file if
@@ -33,14 +34,10 @@ Also, call to `Biome.shouldFreeze` has been removed, as it was a major source of
 As a coarse benchmark (totally unscientific), after flying around and generating chunks in Creative, the mod only used
 0.99% of the Server Thread according to Spark Profiler.
 
-### Future Plans
-
-- Water freezing (current implementation causes massive lag and doesn't work)
-- Making leaves & grass white (Like Bedrock Edition)
-
 ### Acknowledgements
 
-This mod is a remake of my private mod BetterSereneSeasons, which was originally a 1.19.2 Forge remake of [Serene Tweaks][4].
+This mod is a remake of my private mod BetterSereneSeasons, which was originally a 1.19.2 Forge remake
+of [Serene Tweaks][4].
 
 [1]: https://curseforge.com/minecraft/mc-mods/serene-seasons
 [2]: https://modrinth.com/mod/fabric-seasons

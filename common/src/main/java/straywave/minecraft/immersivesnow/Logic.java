@@ -17,6 +17,8 @@ public class Logic {
     private static final boolean SNOW_REAL_MAGIC = ModHooks.snowRealMagicLoaded();
     private static final boolean SEASON_MOD = ModHooks.seasonModLoaded();
 
+    private static final int FLAGS = 2; // 3;
+
     /**
      * This is the core logic of the mod. This method is called for every (x, z) combination in a chunk when running a
      * recalculation of the snow.
@@ -30,7 +32,8 @@ public class Logic {
         // `topPos` and `topState` are the position and state of the *non-collision block* above (air, snow, etc.)
         // `blockPos` and `blockState` are the actual motion-blocking block (grass, ice, water, etc.)
 
-        BlockPos topPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, new BlockPos(x, 0, z));
+        // TODO: Maybe put this as a config option?
+        BlockPos topPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new BlockPos(x, 0, z));
         BlockPos blockPos = topPos.below();
 
         BlockState topState = level.getBlockState(topPos);
@@ -40,25 +43,31 @@ public class Logic {
 
         /* Snowing and Freezing */
         if (biome.shouldSnow(level, topPos) && !topState.is(Blocks.SNOW) && Blocks.SNOW.defaultBlockState().canSurvive(level, topPos)) {
-            level.setBlock(topPos, Blocks.SNOW.defaultBlockState(), 3, 1);
-        } else if (biome.shouldFreeze(level, blockPos) && !blockState.is(Blocks.ICE)) {
-            level.setBlock(blockPos, Blocks.ICE.defaultBlockState(), 3, 1);
-        } else if (SNOW_REAL_MAGIC && biome.coldEnoughToSnow(topPos) && SnowRealMagicHook.canReplaceBlock(topState) && !SnowRealMagicHook.canMelt(topState)) {
-            SnowRealMagicHook.replaceBlock(level, topPos, topState);
+            level.setBlock(topPos, Blocks.SNOW.defaultBlockState(), FLAGS, 1);
+        } else if (biome.shouldFreeze(level, blockPos, false) && !blockState.is(Blocks.ICE)) {
+            level.setBlock(blockPos, Blocks.ICE.defaultBlockState(), FLAGS, 1);
+        } else if (SNOW_REAL_MAGIC && ModHooks.coldEnoughToSnow(level, biome, topPos)) {
+            if (SnowRealMagicHook.canReplaceBlock(topState) && !SnowRealMagicHook.canMelt(topState))
+                SnowRealMagicHook.replaceBlock(level, topPos, topState);
+            else if (SnowRealMagicHook.canReplaceBlock(blockState) && !SnowRealMagicHook.canMelt(blockState))
+                SnowRealMagicHook.replaceBlock(level, blockPos, blockState);
         }
 
         /* Melting */
         else if (blockState.is(Blocks.ICE) && shouldMelt(level, biome, topPos)) {
-            level.setBlock(blockPos, #if MC_1_20_1 IceBlock.meltsInto() #else Blocks.WATER.defaultBlockState() #endif , 3, 1);
+            level.setBlock(blockPos, #if MC_1_20_1 IceBlock.meltsInto() #else Blocks.WATER.defaultBlockState() #endif , FLAGS, 1);
             level.neighborChanged(blockPos, #if MC_1_20_1 IceBlock.meltsInto().getBlock() #else Blocks.WATER #endif , blockPos);
         } else if (topState.is(Blocks.SNOW) && shouldMelt(level, biome, topPos)) {
-            level.setBlock(topPos, Blocks.AIR.defaultBlockState(), 3, 1);
-        } else if (SNOW_REAL_MAGIC && SnowRealMagicHook.canMelt(topState) && shouldMelt(level, biome, topPos)) {
-            SnowRealMagicHook.melt(level, topPos, topState);
+            level.setBlock(topPos, Blocks.AIR.defaultBlockState(), FLAGS, 1);
+        } else if (SNOW_REAL_MAGIC && shouldMelt(level, biome, topPos)) {
+            if (SnowRealMagicHook.canMelt(topState))
+                SnowRealMagicHook.melt(level, topPos, topState);
+            else if (SnowRealMagicHook.canMelt(blockState))
+                SnowRealMagicHook.melt(level, blockPos, blockState);
         }
     }
 
-    public static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
+    private static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
         if (SEASON_MOD) return ModHooks.shouldMelt(level, biome, pos);
         return biome.warmEnoughToRain(pos) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
     }

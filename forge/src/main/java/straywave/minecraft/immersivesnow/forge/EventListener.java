@@ -41,7 +41,6 @@ public class EventListener {
         LevelAccessor level = #if MC_1_18_2 event.getWorld(); #else event.getLevel(); #endif
         if (level.isClientSide()) return;
         ImmersiveSnowEvents.onChunkLoad((ServerLevel) level, (LevelChunk) event.getChunk());
-
     }
 
     @SubscribeEvent

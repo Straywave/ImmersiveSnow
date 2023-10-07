@@ -2,7 +2,6 @@ package straywave.minecraft.immersivesnow.hook.fabric;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import snownee.snow.CoreModule;
 import snownee.snow.Hooks;
@@ -10,8 +9,7 @@ import snownee.snow.block.SnowVariant;
 
 public class SnowRealMagicHookImpl {
     public static boolean canReplaceBlock(BlockState state) {
-        Block block = state.getBlock();
-        return state.is(CoreModule.CONTAINABLES) || (block instanceof TallGrassBlock) || (block instanceof DoublePlantBlock) || (block instanceof FlowerBlock) || (block instanceof SaplingBlock) || (block instanceof MushroomBlock) || (block instanceof SweetBerryBushBlock);
+        return Hooks.canContainState(state);
     }
 
     public static void replaceBlock(ServerLevel world, BlockPos pos, BlockState state) {
