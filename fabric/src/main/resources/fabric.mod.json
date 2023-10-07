@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "${name}",
   "description": "${description}",
-  "authors": ["${author}"],
+  "authors": [
+    "${author}"
+  ],
   "contact": {
     "homepage": "${websiteUrl}",
     "issues": "${issueTrackerUrl}"
@@ -13,14 +15,17 @@
   "icon": "assets/immersivesnow/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": ["straywave.minecraft.immersivesnow.fabric.Entrypoint"]
+    "main": [
+      "straywave.minecraft.immersivesnow.fabric.Entrypoint"
+    ]
   },
-  "mixins": [
-    "immersivesnow.fabric.mixins.json"
-  ],
   "depends": {
     "fabric": ">=${fabricVersion}",
     "minecraft": "${minecraftVersion}"
+  },
+  "recommends": {
+    "snowrealmagic": "*",
+    "seasons": "*"
   },
   "custom": {
     "modmenu": {

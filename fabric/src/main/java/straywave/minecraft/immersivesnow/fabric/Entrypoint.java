@@ -18,10 +18,11 @@ public class Entrypoint implements ModInitializer {
     public void onInitialize() {
         ImmersiveSnow.init();
 
-        ServerLifecycleEvents.SERVER_STARTED.register(ImmersiveSnowEvents::onServerStarted);
+        ServerLifecycleEvents.SERVER_STARTING.register(ImmersiveSnowEvents::onServerStarting);
+        ServerLifecycleEvents.SERVER_STOPPING.register(ImmersiveSnowEvents::onServerStopping);
         ServerChunkEvents.CHUNK_LOAD.register(ImmersiveSnowEvents::onChunkLoad);
         ServerTickEvents.START_WORLD_TICK.register(ImmersiveSnowEvents::onWorldTick);
-        ServerTickEvents.END_WORLD_TICK.register(ImmersiveSnowEvents::onWorldTick);
+
         #if MC_1_18_2
         CommandRegistrationCallback.EVENT.register((dispatcher, _1) -> Command.register(dispatcher));
         #else

@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import snownee.snow.CoreModule;
 import snownee.snow.Hooks;
 import snownee.snow.block.SnowVariant;
+import straywave.minecraft.immersivesnow.Utils;
 
 public class SnowRealMagicHookImpl {
     public static boolean canReplaceBlock(BlockState state) {
@@ -26,6 +27,6 @@ public class SnowRealMagicHookImpl {
 
     public static void melt(ServerLevel level, BlockPos pos, BlockState state) {
         SnowVariant snow = (SnowVariant) state.getBlock();
-        level.setBlock(pos, snow.getRaw(state, level, pos), 3, 1);
+        Utils.setBlock(level, pos, snow.getRaw(state, level, pos));
     }
 }

@@ -12,6 +12,10 @@ public class Memory {
         data.put(chunkPos, Instant.now().getEpochSecond());
     }
 
+    public static void forget(ChunkPos chunkPos) {
+        data.remove(chunkPos);
+    }
+
     public static boolean hasForgotten(ChunkPos chunkPos) {
         long rememberedTime = data.getOrDefault(chunkPos, 0L);
         long currentTime = Instant.now().getEpochSecond();

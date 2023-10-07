@@ -1,15 +1,12 @@
 package straywave.minecraft.immersivesnow.forge;
 
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import straywave.minecraft.immersivesnow.Command;
@@ -25,15 +22,13 @@ import net.minecraftforge.event.level.ChunkEvent;
 @Mod.EventBusSubscriber
 public class EventListener {
     @SubscribeEvent
-    public static void onServerStarted(ServerStartedEvent event) {
-        ImmersiveSnowEvents.onServerStarted(event.getServer());
+    public static void onServerStarting(ServerStartingEvent event) {
+        ImmersiveSnowEvents.onServerStarting(event.getServer());
     }
 
     @SubscribeEvent
-    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        Player player = #if MC_1_18_2 event.getPlayer(); #else event.getEntity(); #endif
-        if (player.level#if MC_1_20_1 () #endif .isClientSide()) return;
-        ImmersiveSnowEvents.onPlayerLoggedIn((ServerPlayer) player);
+    public static void onServerStopping(ServerStoppingEvent event) {
+        ImmersiveSnowEvents.onServerStopping(event.getServer());
     }
 
     @SubscribeEvent
