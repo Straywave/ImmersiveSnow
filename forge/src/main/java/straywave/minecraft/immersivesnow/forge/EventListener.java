@@ -40,8 +40,8 @@ public class EventListener {
 
     @SubscribeEvent
     public static void onWorldTick(#if MC_1_18_2 TickEvent.WorldTickEvent #else TickEvent.LevelTickEvent #endif event) {
-        if (event.side.isClient()) return;
-        ImmersiveSnowEvents.onWorldTick((ServerLevel) event.#if MC_1_18_2 world #else level #endif );
+        if (event.side.isClient() || event.phase != TickEvent.Phase.END || !event.haveTime()) return;
+        ImmersiveSnowEvents.onWorldTick((ServerLevel) event.#if MC_1_18_2 world #else level #endif , event::haveTime);
     }
 
     @SubscribeEvent
