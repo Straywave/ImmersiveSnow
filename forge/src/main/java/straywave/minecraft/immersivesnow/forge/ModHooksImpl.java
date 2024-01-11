@@ -5,7 +5,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fml.ModList;
 import straywave.minecraft.immersivesnow.Configuration;
-import straywave.minecraft.immersivesnow.ImmersiveSnow;
 import straywave.minecraft.immersivesnow.forge.hook.HourglassHook;
 import straywave.minecraft.immersivesnow.forge.hook.SereneSeasonsHook;
 
