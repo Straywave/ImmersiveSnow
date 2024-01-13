@@ -11,11 +11,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+#if MC_1_18_2
+import net.minecraft.network.chat.TextComponent;
+#endif
+
 public class Command {
     private static final Heightmap.Types[] HEIGHTMAPS = {Heightmap.Types.WORLD_SURFACE, Heightmap.Types.OCEAN_FLOOR, Heightmap.Types.MOTION_BLOCKING, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES};
 
     private static void sendResponse(CommandContext<CommandSourceStack> context, String message) {
+        #if MC_1_18_2
+        context.getSource().sendSuccess(new TextComponent(message), true);
+        #else
         context.getSource().sendSystemMessage(Component.literal(message));
+        #endif
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -40,7 +48,11 @@ public class Command {
     }
 
     private static int recalculate(CommandContext<CommandSourceStack> context) {
+        #if MC_1_18_2
+        BlockPos blockPos = context.getSource().getEntity().blockPosition();
+        #else
         BlockPos blockPos = context.getSource().getPlayer().blockPosition();
+        #endif
 
         ChunkPos pos = new ChunkPos(blockPos);
         ImmersiveSnow.queue.add(new ImmersiveSnow.QueueEntry(pos, 0));
@@ -56,7 +68,11 @@ public class Command {
     }
 
     private static int heightmaps(CommandContext<CommandSourceStack> context) {
+        #if MC_1_18_2
+        BlockPos playerPos = context.getSource().getEntity().blockPosition();
+        #else
         BlockPos playerPos = context.getSource().getPlayer().blockPosition();
+        #endif
 
         sendResponse(context, String.format("Block %s %s:", playerPos.getX(), playerPos.getZ()));
 

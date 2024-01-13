@@ -1,7 +1,11 @@
 package straywave.minecraft.immersivesnow.fabric;
 
 import net.fabricmc.api.ModInitializer;
+#if MC_1_18_2
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+#else
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+#endif
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -19,6 +23,10 @@ public class Entrypoint implements ModInitializer {
         ServerChunkEvents.CHUNK_LOAD.register(ImmersiveSnowEvents::onChunkLoad);
         ServerTickEvents.START_WORLD_TICK.register(ImmersiveSnowEvents::onWorldTick);
 
+        #if MC_1_18_2
+        CommandRegistrationCallback.EVENT.register((dispatcher, _1) -> Command.register(dispatcher));
+        #else
         CommandRegistrationCallback.EVENT.register((dispatcher, _1, _2) -> Command.register(dispatcher));
+        #endif
     }
 }

@@ -7,15 +7,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import snownee.snow.CoreModule;
 import snownee.snow.block.*;
 import straywave.minecraft.immersivesnow.Utils;
+
+#if !MC_1_18_2
 import snownee.snow.Hooks;
+#endif
 
 public class SnowRealMagicHookImpl {
     public static boolean canReplaceBlock(BlockState state) {
+        #if MC_1_18_2
+        return ModSnowLayerBlock.canContainState(state);
+        #else
         return Hooks.canContainState(state);
+        #endif
     }
 
     public static void replaceBlock(ServerLevel world, BlockPos pos, BlockState state) {
+        #if MC_1_18_2
+        ModSnowLayerBlock.convert(world, pos, state, 1, 2);
+        #else
         Hooks.convert(world, pos, state, 1, 2, true);
+        #endif
     }
 
     public static boolean canMelt(BlockState state) {
