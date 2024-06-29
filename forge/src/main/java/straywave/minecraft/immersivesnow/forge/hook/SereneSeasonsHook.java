@@ -10,6 +10,8 @@ import net.minecraft.core.Holder;
 
 #if MC_1_20_1
 import sereneseasons.init.ModTags;
+#elif MC_1_20_2
+import sereneseasons.init.ModTags;
 #endif
 
 // Code adapted from Snow Real Magic mod
@@ -20,6 +22,9 @@ public class SereneSeasonsHook {
 
         // Don't melt in blacklisted biomes
         #if MC_1_20_1
+        Holder<Biome> biomeHolder = Holder.direct(biome);
+        if (biomeHolder.is(ModTags.Biomes.BLACKLISTED_BIOMES)) return false;
+        #elif MC_1_20_2
         Holder<Biome> biomeHolder = Holder.direct(biome);
         if (biomeHolder.is(ModTags.Biomes.BLACKLISTED_BIOMES)) return false;
         #endif

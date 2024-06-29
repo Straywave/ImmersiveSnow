@@ -16,6 +16,8 @@ public class SnowRealMagicHookImpl {
     public static void replaceBlock(ServerLevel world, BlockPos pos, BlockState state) {
         #if MC_1_20_1
         Hooks.convert(world, pos, state, 1, 2, true);
+        #elif MC_1_20_2
+        Hooks.convert(world, pos, state, 1, 2, true);
         #else
         Hooks.convert(world, pos, state, 1, 2);
         #endif
