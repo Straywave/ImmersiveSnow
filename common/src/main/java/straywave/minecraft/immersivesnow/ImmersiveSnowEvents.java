@@ -8,6 +8,8 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+import java.util.function.BooleanSupplier;
+
 public class ImmersiveSnowEvents {
     public static void onServerStarting(MinecraftServer server) {
         Memory.erase();
@@ -24,6 +26,10 @@ public class ImmersiveSnowEvents {
     }
 
     public static void onWorldTick(ServerLevel level) {
+        onWorldTick(level, () -> true);
+    }
+
+    public static void onWorldTick(ServerLevel level, BooleanSupplier stillTimeToProcess) {
         if (!level.dimensionType().natural() || ImmersiveSnow.queue.isEmpty()) return;
         ModHooks.onTick(level);
 
@@ -53,6 +59,11 @@ public class ImmersiveSnowEvents {
                     // This lets us generate & melt snow under trees.
                     BlockPos noLeavesPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, column);
                     if (motionBlockingPos != noLeavesPos) Logic.checkAndUpdateBlock(level, noLeavesPos);
+
+                    if (!stillTimeToProcess.getAsBoolean()) {
+                        ImmersiveSnow.queue.add(new ImmersiveSnow.QueueEntry(chunkPos, sittingFor));
+                        return;
+                    }
                 }
             }
         }
