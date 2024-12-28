@@ -1,5 +1,5 @@
 plugins { id "com.github.johnrengelman.shadow" version "7.1.2" }
-architectury { fabric() }
+architectury { neoForge() }
 
 configurations {
     common
@@ -9,6 +9,7 @@ configurations {
 }
 
 repositories {
+    maven { url "https://maven.neoforged.net/releases" }
     exclusiveContent {
         forRepository { maven { url "https://cursemaven.com/" } }
         filter { includeGroup "curse.maven" }
@@ -20,15 +21,12 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${parent.props.fabric}+${rootProject.minecraft}"
-    modImplementation "maven.modrinth:serene-seasons:${parent.props.sereneseasons_fabric}"
-    modImplementation "maven.modrinth:glitchcore:${parent.props.glitchcore_fabric}"
-    //modApi "curse.maven:snow-real-magic-fabric-560441:${parent.props.snowrealmagicfabric}"
-    //modApi "curse.maven:kiwi-fabric-549404:${parent.props.kiwifabric}"
+    neoForge "net.neoforged:neoforge:${parent.props.neoforge}"
+    modImplementation "maven.modrinth:serene-seasons:${parent.props.sereneseasons_neoforge}"
+    modImplementation "maven.modrinth:glitchcore:${parent.props.glitchcore_neoforge}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive false }
 }
 
 processResources {
@@ -49,10 +47,13 @@ processResources {
     ]
 
     inputs.properties props
-    filesMatching("fabric.mod.json") { expand props }
+    filesMatching("META-INF/neoforge.mods.toml") { expand props }
+    filesMatching("META-INF/mods.toml") { expand props } // For NeoForge 1.20.4
 }
 
 shadowJar {
+    exclude "fabric.mod.json"
+
     configurations = [project.configurations.shadowCommon]
     archiveClassifier.set "dev-shadow"
 }

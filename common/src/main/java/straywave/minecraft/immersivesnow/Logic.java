@@ -47,8 +47,12 @@ public class Logic {
 
         /* Melting */
         else if (blockState.is(Blocks.ICE) && shouldMelt(level, biome, topPos)) {
-            Utils.setBlock(level, blockPos, #if MC_1_20_1 IceBlock.meltsInto() #else Blocks.WATER.defaultBlockState() #endif );
-            level.neighborChanged(blockPos, #if MC_1_20_1 IceBlock.meltsInto().getBlock() #else Blocks.WATER #endif , blockPos);
+            Utils.setBlock(level, blockPos, IceBlock.meltsInto());
+            #if MC_1_21_4
+            level.neighborChanged(blockPos, IceBlock.meltsInto().getBlock(), null);
+            #else
+            level.neighborChanged(blockPos, IceBlock.meltsInto().getBlock(), blockPos);
+            #endif
         } else if (topState.is(Blocks.SNOW) && shouldMelt(level, biome, topPos)) {
             Utils.setBlock(level, topPos, Blocks.AIR.defaultBlockState());
         } else if (SNOW_REAL_MAGIC && shouldMelt(level, biome, topPos)) {
@@ -61,6 +65,10 @@ public class Logic {
 
     private static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
         if (SEASON_MOD) return ModHooks.shouldMelt(level, biome, pos);
+        #if MC_1_21_4
+        return biome.warmEnoughToRain(pos, level.getSeaLevel()) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        #else
         return biome.warmEnoughToRain(pos) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        #endif
     }
 }

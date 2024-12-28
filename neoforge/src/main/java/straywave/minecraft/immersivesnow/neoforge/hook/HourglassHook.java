@@ -1,4 +1,4 @@
-package straywave.minecraft.immersivesnow.forge.hook;
+package straywave.minecraft.immersivesnow.neoforge.hook;
 
 //import net.lavabucket.hourglass.config.HourglassConfig;
 import net.minecraft.world.level.Level;

@@ -1,12 +1,12 @@
-package straywave.minecraft.immersivesnow.forge;
+package straywave.minecraft.immersivesnow.neoforge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import straywave.minecraft.immersivesnow.Configuration;
-import straywave.minecraft.immersivesnow.forge.hook.HourglassHook;
-import straywave.minecraft.immersivesnow.forge.hook.SereneSeasonsHook;
+import straywave.minecraft.immersivesnow.neoforge.hook.HourglassHook;
+import straywave.minecraft.immersivesnow.neoforge.hook.SereneSeasonsHook;
 
 public class ModHooksImpl {
     private static final boolean SNOW_REAL_MAGIC = ModList.get().isLoaded("snowrealmagic");

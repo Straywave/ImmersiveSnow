@@ -1,4 +1,4 @@
-package straywave.minecraft.immersivesnow.forge.hook;
+package straywave.minecraft.immersivesnow.neoforge.hook;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -36,7 +36,6 @@ public class SereneSeasonsHook {
     }
 
     public static boolean coldEnoughToSnow(Level level, Biome biome, BlockPos pos) {
-        // TODO: Why do things in 1.21.4 need sea level? Should investigate, maybe always assuming that it's `level.getSeaLevel()` is wrong
         #if MC_1_21_4
         return SeasonHooks.getBiomeTemperature(level, Holder.direct(biome), pos, level.getSeaLevel()) < 0.15F;
         #else

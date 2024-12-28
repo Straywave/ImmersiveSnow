@@ -23,7 +23,11 @@ public class ModHooks {
 
     @ExpectPlatform
     public static boolean coldEnoughToSnow(Level level, Biome biome, BlockPos pos) {
+        #if MC_1_21_4
+        return biome.coldEnoughToSnow(pos, level.getSeaLevel());
+        #else
         return biome.coldEnoughToSnow(pos);
+        #endif
     }
 
     @ExpectPlatform

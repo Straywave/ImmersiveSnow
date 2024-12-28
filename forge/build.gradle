@@ -2,10 +2,9 @@ plugins { id "com.github.johnrengelman.shadow" version "7.1.2" }
 architectury { forge() }
 
 loom {
-    mixin { defaultRefmapName = "immersivesnow.forge.refmap.json" }
     forge {
-        // mixinConfig "immersivesnow.forge.mixins.json"
-        // mixinConfig "immersivesnow.mixins.json"
+        mixinConfig "immersivesnow.forge.mixins.json"
+        mixinConfig "immersivesnow.mixins.json"
     }
 }
 
@@ -16,16 +15,27 @@ configurations {
     runtimeClasspath.extendsFrom common
 }
 
-repositories { maven { url "https://cursemaven.com/" } }
+repositories {
+    exclusiveContent {
+        forRepository { maven { url "https://cursemaven.com/" } }
+        filter { includeGroup "curse.maven" }
+    }
+    exclusiveContent {
+        forRepository { maven { url "https://api.modrinth.com/maven" } }
+        filter { includeGroup "maven.modrinth" }
+    }
+}
+
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft}-${parent.props.forge}"
-    modApi "curse.maven:sereneseasons-291874:${parent.props.sereneseasons}-api-${parent.props.sereneseasonsapi}"
-    modApi "curse.maven:hourglass-511172:${parent.props.hourglass}"
-    modApi "curse.maven:snow-real-magic-308663:${parent.props.snowrealmagic}"
-    modApi "curse.maven:kiwi-303657:${parent.props.kiwi}"
+    modImplementation "maven.modrinth:serene-seasons:${parent.props.sereneseasons_forge}"
+    modImplementation "maven.modrinth:glitchcore:${parent.props.glitchcore_forge}"
+    //modImplementation "curse.maven:hourglass-511172:${parent.props.hourglass}"
+    //modImplementation "curse.maven:snow-real-magic-308663:${parent.props.snowrealmagic}"
+    //modImplementation "curse.maven:kiwi-303657:${parent.props.kiwi}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
 }
 
 processResources {
@@ -42,6 +52,7 @@ processResources {
             "minecraftVersion": rootProject.minecraft,
             "fabricVersion"   : rootProject.props.fabric,
             "forgeVersion"    : rootProject.props.forge,
+            "neoForgeVersion" : rootProject.props.neoforge,
     ]
 
     inputs.properties props

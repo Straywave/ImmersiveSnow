@@ -1,5 +1,6 @@
 package straywave.minecraft.immersivesnow.fabric;
 
+import com.mojang.authlib.minecraft.TelemetrySession;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -22,7 +23,11 @@ public class ModHooksImpl {
     }
 
     public static boolean coldEnoughToSnow(Level level, Biome biome, BlockPos pos) {
+        #if MC_1_21_4
+        return biome.coldEnoughToSnow(pos, level.getSeaLevel());
+        #else
         return biome.coldEnoughToSnow(pos);
+        #endif
     }
 
     public static void onTick(Level level) {

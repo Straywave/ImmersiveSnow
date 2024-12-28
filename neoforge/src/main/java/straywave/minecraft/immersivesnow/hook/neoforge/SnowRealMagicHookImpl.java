@@ -1,4 +1,4 @@
-package straywave.minecraft.immersivesnow.hook.forge;
+package straywave.minecraft.immersivesnow.hook.neoforge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
