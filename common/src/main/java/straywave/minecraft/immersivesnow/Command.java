@@ -55,13 +55,13 @@ public class Command {
         #endif
 
         ChunkPos pos = new ChunkPos(blockPos);
-        ImmersiveSnow.queue.add(new ImmersiveSnow.QueueEntry(pos, 0));
+        Queue.add(new Queue.Entry(pos, 0), true);
         sendResponse(context, String.format("Added chunk at %s %s to queue", pos.x, pos.z));
         return 1;
     }
 
     private static int forget(CommandContext<CommandSourceStack> context) {
-        ImmersiveSnow.queue.clear();
+        Queue.clear();
         Memory.erase();
         sendResponse(context, "Cleared queue and forgot all chunks");
         return 1;

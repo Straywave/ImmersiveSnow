@@ -1,21 +1,10 @@
 package straywave.minecraft.immersivesnow;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelWriter;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class Utils {
-    /**
-     * Tries to add a chunk to the queue, only if it has been forgotten.
-     */
-    public static void tryAddToQueue(ChunkPos chunkPos) {
-        if (Memory.hasForgotten(chunkPos)) {
-            Memory.remember(chunkPos);
-            ImmersiveSnow.queue.add(new ImmersiveSnow.QueueEntry(chunkPos, 0));
-        }
-    }
-
     /**
      * A shortcut to set a block with proper flags and recursion.
      *
