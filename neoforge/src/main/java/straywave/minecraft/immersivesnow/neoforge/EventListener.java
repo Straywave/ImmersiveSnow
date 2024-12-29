@@ -38,21 +38,21 @@ public class EventListener {
     public static void onChunkLoad(ChunkEvent.Load event) {
         LevelAccessor level = event.getLevel();
         if (level.isClientSide()) return;
-        ImmersiveSnowEvents.onChunkLoad((ServerLevel) level, (LevelChunk) event.getChunk());
+        ImmersiveSnowEvents.onChunkLoad((ServerLevel) level, event.getChunk());
     }
 
     #if MC_1_20_4
     @SubscribeEvent
     public static void onWorldTick(TickEvent.LevelTickEvent event) {
-        if (event.side.isClient() || event.phase != TickEvent.Phase.END || !event.haveTime()) return;
-        ImmersiveSnowEvents.onWorldTick((ServerLevel) event.level, event::haveTime);
+        if (event.side.isClient() || event.phase != TickEvent.Phase.END) return;
+        ImmersiveSnowEvents.onWorldTick((ServerLevel) event.level);
     }
     #else
     @SubscribeEvent
     public static void onWorldTick(LevelTickEvent.Post event) {
         Level level = event.getLevel();
-        if (level.isClientSide() || !event.hasTime()) return;
-        ImmersiveSnowEvents.onWorldTick((ServerLevel) level, event::hasTime);
+        if (level.isClientSide()) return;
+        ImmersiveSnowEvents.onWorldTick((ServerLevel) level);
     }
     #endif
 

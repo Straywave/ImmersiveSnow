@@ -16,9 +16,9 @@ import glitchcore.config.Config;
 public class SereneSeasonsHook {
     public static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
         #if MC_1_21_4
-        boolean vanillaBehavior = biome.coldEnoughToSnow(pos, level.getSeaLevel());
+        boolean vanillaBehavior = !biome.coldEnoughToSnow(pos, level.getSeaLevel());
         #else
-        boolean vanillaBehavior = biome.coldEnoughToSnow(pos);
+        boolean vanillaBehavior = !biome.coldEnoughToSnow(pos);
         #endif
 
         // Bypass if biome is blacklisted via tags
@@ -27,7 +27,7 @@ public class SereneSeasonsHook {
 
         // Bypass if snow is disabled or dimension not whitelisted
         SeasonsConfig seasonsConfig = ModConfig.seasons;
-        if (seasonsConfig.generateSnowAndIce || !seasonsConfig.isDimensionWhitelisted(level.dimension())) {
+        if (!seasonsConfig.generateSnowAndIce || !seasonsConfig.isDimensionWhitelisted(level.dimension())) {
             return vanillaBehavior;
         }
 

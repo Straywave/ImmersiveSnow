@@ -3,9 +3,9 @@
   "package": "straywave.minecraft.immersivesnow.mixin",
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_17",
-  "client": [
-  ],
   "mixins": [
+    "MinecraftServerInvoker",
+    "ServerLevelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

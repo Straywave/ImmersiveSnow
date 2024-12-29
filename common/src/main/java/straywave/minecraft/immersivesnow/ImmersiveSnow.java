@@ -1,19 +1,13 @@
 package straywave.minecraft.immersivesnow;
 
-import net.minecraft.world.level.ChunkPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-
 public class ImmersiveSnow {
-    public static final ArrayList<QueueEntry> queue = new ArrayList<>();
-    public static Logger LOGGER = LogManager.getLogger("immersivesnow");
+    public static final String MOD_ID = "immersivesnow";
+    public static Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {
         Configuration.load();
-    }
-
-    public record QueueEntry(ChunkPos pos, int sittingFor) {
     }
 }
