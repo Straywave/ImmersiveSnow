@@ -4,7 +4,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import straywave.minecraft.immersivesnow.mixin.MinecraftServerInvoker;
 
 public class ImmersiveSnowEvents {
@@ -17,7 +17,7 @@ public class ImmersiveSnowEvents {
         Memory.erase();
     }
 
-    public static void onChunkLoad(ServerLevel level, LevelChunk chunk) {
+    public static void onChunkLoad(ServerLevel level, ChunkAccess chunk) {
        if (!level.dimensionType().natural()) return;
        Queue.tryAdd(chunk.getPos(), false);
     }

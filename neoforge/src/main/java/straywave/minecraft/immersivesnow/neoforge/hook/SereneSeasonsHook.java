@@ -8,7 +8,6 @@ import sereneseasons.init.ModConfig;
 import sereneseasons.init.ModTags;
 import sereneseasons.season.SeasonHooks;
 import net.minecraft.core.Holder;
-import glitchcore.config.Config;
 
 // Code adapted from Snow Real Magic mod
 // https://github.com/Snownee/SnowRealMagic/blob/d6ea96f5a2eefc4bf25f233417e33f1e0690eef2/src/main/java/snownee/snow/compat/sereneseasons/SereneSeasonsCompat.java
