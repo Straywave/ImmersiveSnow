@@ -4,12 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import sereneseasons.config.SeasonsConfig;
-import sereneseasons.config.ServerConfig;
 import sereneseasons.season.SeasonHooks;
 import net.minecraft.core.Holder;
 
 #if MC_1_20_1
 import sereneseasons.init.ModTags;
+import sereneseasons.init.ModConfig;
+#else
+import sereneseasons.config.ServerConfig;
 #endif
 
 // Code adapted from Snow Real Magic mod
@@ -17,18 +19,26 @@ import sereneseasons.init.ModTags;
 
 public class SereneSeasonsHook {
     public static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
+        boolean vanillaBehavior = !biome.coldEnoughToSnow(pos);
 
-        // Don't melt in blacklisted biomes
         #if MC_1_20_1
+        // Bypass if biome is blacklisted via tags
         Holder<Biome> biomeHolder = Holder.direct(biome);
-        if (biomeHolder.is(ModTags.Biomes.BLACKLISTED_BIOMES)) return false;
+        if (biomeHolder.is(ModTags.Biomes.BLACKLISTED_BIOMES)) return vanillaBehavior;
         #endif
 
+        #if MC_1_20_1
+        // Bypass if snow is disabled or dimension not whitelisted
+        SeasonsConfig seasonsConfig = ModConfig.seasons;
+        if (!seasonsConfig.generateSnowAndIce || !seasonsConfig.isDimensionWhitelisted(level.dimension())) {
+        #else
         // Don't melt if we can't generate snow
         if (!SeasonsConfig.generateSnowAndIce.get() || !ServerConfig.isDimensionWhitelisted(level.dimension())) {
-            return false;
+        #endif
+            return vanillaBehavior;
         }
 
+        // Return hook from Serene Seasons
         return !coldEnoughToSnow(level, biome, pos);
     }
 
