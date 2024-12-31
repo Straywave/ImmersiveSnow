@@ -28,7 +28,6 @@ public class Logic {
             for (int z = chunkPos.getMinBlockZ(); z <= chunkPos.getMaxBlockZ(); z++) {
                 BlockPos column = new BlockPos(x, 0, z);
 
-                // TODO: recalculating twice toggles snow on top of leaves?
                 BlockPos motionBlockingPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, column);
                 Logic.checkAndUpdateBlock(level, motionBlockingPos);
 
@@ -89,20 +88,23 @@ public class Logic {
     }
 
     private static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
-        if (SERENE_SEASONS) return SereneSeasonsHook.shouldMelt(level, biome, pos);
+        // TODO: seems like light level 11 is one block too much for SRM, but works fine for vanilla?
+        boolean brightEnough = level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        if (SERENE_SEASONS) return SereneSeasonsHook.shouldMelt(level, biome, pos) || brightEnough;
         #if MC_1_21_4
-        return biome.warmEnoughToRain(pos, level.getSeaLevel()) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        return biome.warmEnoughToRain(pos, level.getSeaLevel()) || brightEnough;
         #else
-        return biome.warmEnoughToRain(pos) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        return biome.warmEnoughToRain(pos) || brightEnough;
         #endif
     }
 
     private static boolean coldEnoughToSnow(Level level, Biome biome, BlockPos pos) {
-        if (SERENE_SEASONS) return SereneSeasonsHook.coldEnoughToSnow(level, biome, pos);
+        boolean darkEnough = level.getBrightness(LightLayer.BLOCK, pos) <= 11;
+        if (SERENE_SEASONS) return SereneSeasonsHook.coldEnoughToSnow(level, biome, pos) && darkEnough;
         #if MC_1_21_4
-        return biome.coldEnoughToSnow(pos, level.getSeaLevel()) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        return biome.coldEnoughToSnow(pos, level.getSeaLevel()) && darkEnough;
         #else
-        return biome.coldEnoughToSnow(pos) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        return biome.coldEnoughToSnow(pos) && darkEnough;
         #endif
     }
 }

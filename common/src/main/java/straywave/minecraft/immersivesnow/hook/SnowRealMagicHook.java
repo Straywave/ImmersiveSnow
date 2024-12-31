@@ -1,26 +1,31 @@
 package straywave.minecraft.immersivesnow.hook;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
 
+import net.minecraft.world.level.block.Block;
+import snownee.snow.CoreModule;
+import snownee.snow.Hooks;
+import snownee.snow.block.*;
+import straywave.minecraft.immersivesnow.Utils;
+
 public class SnowRealMagicHook {
-    @ExpectPlatform
     public static boolean canReplaceBlock(BlockState state) {
-        return false;
+        return Hooks.canContainState(state);
     }
 
-    @ExpectPlatform
     public static void replaceBlock(ServerLevel world, BlockPos pos, BlockState state) {
+        Hooks.convert(world, pos, state, 1, 2, true);
     }
 
-    @ExpectPlatform
     public static boolean canMelt(BlockState state) {
-        return false;
+        Block block = state.getBlock();
+        return state.is(CoreModule.SNOW_TAG) || block instanceof SnowSlabBlock || block instanceof SnowStairsBlock || block instanceof SnowWallBlock || block instanceof SnowFenceBlock || block instanceof SnowFenceGateBlock;
     }
 
-    @ExpectPlatform
     public static void melt(ServerLevel level, BlockPos pos, BlockState state) {
+        SnowVariant snow = (SnowVariant) state.getBlock();
+        Utils.setBlock(level, pos, snow.srm$getRaw(state, level, pos));
     }
 }

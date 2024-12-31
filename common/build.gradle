@@ -16,9 +16,14 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric}"
 
     // These are only compile-time dependencies, their classes may or may not be absent/present at runtime.
-    modCompileOnly "maven.modrinth:betterdays:${parent.props.betterdays}"
     modCompileOnly "maven.modrinth:serene-seasons:${parent.props.sereneseasons}"
     modCompileOnly "maven.modrinth:glitchcore:${parent.props.glitchcore}"
+
+    modCompileOnly "maven.modrinth:betterdays:${parent.props.betterdays}"
     compileOnly "com.illusivesoulworks.spectrelib:spectrelib-common:0.15.1+1.20.4"
     compileOnly "com.electronwill.night-config:core:3.6.0"
+
+    modCompileOnly "maven.modrinth:snow-real-magic:${parent.props.snowrealmagic}"
+    modCompileOnly "maven.modrinth:kiwi:${parent.props.kiwi}"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-api:${parent.props.fabric}+${rootProject.minecraft}"
 }

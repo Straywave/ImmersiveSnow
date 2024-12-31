@@ -14,30 +14,22 @@ Features:
 
 ### Compatibility
 
-The following season mods are supported:
+The mod is not intended for use on its own. Whilst it will run by itself, it won't do much. The following mods are supported for integrations:
 
-- [Serene Seasons (Forge)][1]
-    - A special hook is used as it does not actually modify the biome temperature method but rather modifies all vanilla
-      code that uses it.
-- [Fabric Seasons (Fabric)][2]
-    - Full compatibility out of the box without special tricks
-
-_**Hourglass integration requires Forge and Serene Seasons.**_ It will overwrite your `daySpeed` and `nightSpeed` to
-match the current season, however you can set a `hourglassDaySpeed` / `hourglassNightSpeed` in the configuration file if
-you wish. If you want, you can disable it entirely in the configuration. (Hourglass for 1.16.5 is on CurseForge)
-
-### Performance
-
-Some performance degradations are a given, since the mod has to change 16x16=256 blocks per chunk upon every chunk
-loading. If you see a noticeable performance impact, please file an issue in the tracker with a Spark profiler report
-for investigation.
+- **Season Mods:** Snow will follow season temperature and recalculate in all chunks when the season changes.
+  - [Serene Seasons (Fabric/Forge/NeoForge)][1]
+  - [Fabric Seasons (Fabric)][2]
+- **Changing Day Cycle:** requires both a Season Mod above, and Better Days.
+  - [Better Days (Fabric/NeoForge)][3] (note: currently the integration is implemented by rewriting the `daySpeed` and `nightSpeed` configuration at runtime. To configure the day and night speed, use this mod's `betterDaysDaySpeed` and `betterDaysNightSpeed` options.)
+- Snow recalculation is also compatible with [Snow Real Magic][4], in that blocks like grass, flowers, fences, walls, etc. will be replaced with their snowy variant.
 
 ### Acknowledgements
 
 This mod is a remake of my private mod BetterSereneSeasons, which was originally a 1.19.2 Forge remake
-of [Serene Tweaks][4].
+of [Serene Tweaks][5].
 
-[1]: https://curseforge.com/minecraft/mc-mods/serene-seasons
+[1]: https://modrinth.com/mod/serene-seasons
 [2]: https://modrinth.com/mod/fabric-seasons
-[3]: https://curseforge.com/minecraft/mc-mods/hourglass
-[4]: https://github.com/FIREdog5/SereneTweaks
+[3]: https://modrinth.com/mod/betterdays
+[4]: https://modrinth.com/mod/snow-real-magic
+[5]: https://github.com/FIREdog5/SereneTweaks
