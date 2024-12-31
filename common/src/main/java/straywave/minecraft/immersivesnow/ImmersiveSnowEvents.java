@@ -1,32 +1,37 @@
 package straywave.minecraft.immersivesnow;
 
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import straywave.minecraft.immersivesnow.hook.SereneSeasonsHook;
+import straywave.minecraft.immersivesnow.mixin.ChunkMapInvoker;
 import straywave.minecraft.immersivesnow.mixin.MinecraftServerInvoker;
 
 public class ImmersiveSnowEvents {
-    public static void onServerStarting(MinecraftServer server) {
+    public static void onLevelLoad(ServerLevel level) {
+        if (ModHooks.betterDaysLoaded() && ModHooks.sereneSeasonsLoaded()) {
+            SereneSeasonsHook.updateBetterDays(level);
+        }
+
+        Queue.clear();
         Memory.erase();
     }
 
-    public static void onServerStopping(MinecraftServer server) {
+    public static void onLevelUnload(ServerLevel level) {
         Queue.clear();
         Memory.erase();
     }
 
     public static void onChunkLoad(ServerLevel level, ChunkAccess chunk) {
-       if (!level.dimensionType().natural()) return;
+       if (!level.dimension().location().toString().equals("minecraft:overworld")) return;
        Queue.tryAdd(chunk.getPos(), false);
     }
 
     public static void onWorldTick(ServerLevel level) {
         MinecraftServerInvoker server = (MinecraftServerInvoker) level.getServer();
-
-        if (!level.dimensionType().natural()) return;
-        ModHooks.onTick(level);
+        if (!level.dimension().location().toString().equals("minecraft:overworld")) return;
 
         if (Queue.isEmpty()) {
             Queue.shuffle();
@@ -62,9 +67,21 @@ public class ImmersiveSnowEvents {
             Logic.processChunk(level, chunkPos);
 
             // Stop if there's no time left, and we've processed the minimum number of chunks.
-            if (!server.hasTimeRemaining() && i >= Configuration.data.minChunksToProcessPerTick) {
+            if (!server.snow$hasTimeRemaining() && i >= Configuration.data.minChunksToProcessPerTick) {
                 break;
             }
+        }
+    }
+
+    public static void onSeasonChange(ServerLevel level) {
+        if (!level.dimension().location().toString().equals("minecraft:overworld")) return;
+
+        Memory.erase();
+        Queue.clear();
+
+        ChunkMapInvoker chunkMap = (ChunkMapInvoker) level.getChunkSource().chunkMap;
+        for (ChunkHolder chunk : chunkMap.snow$getChunks()) {
+            Queue.tryAdd(chunk.getPos(), false);
         }
     }
 }

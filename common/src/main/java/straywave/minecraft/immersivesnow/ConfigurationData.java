@@ -22,22 +22,22 @@ public class ConfigurationData {
     public long memoryDuration = 600;
 
     /**
-     * Controls whether the Hourglass integration with Serene Seasons is enabled.
+     * Controls whether the Better Days integration with Serene Seasons/Fabric Seasons is enabled.
      * NOTE: It will overwrite Hourglass daySpeed and nightSpeed settings!
      */
-    public boolean enableHourglassChangingDayNightCycle = true;
+    public boolean enableBetterDaysChangingDayNightCycle = true;
 
     /**
-     * Scalar multiplier for day speed with Hourglass integration.
+     * Scalar multiplier for day speed with Better Days integration.
      * For example, with a value of 2, the daytime will pass twice as fast.
      * With a value of 0.5, the daytime will pass twice as slow.
      */
-    public double hourglassDaySpeed = 1;
+    public double betterDaysDaySpeed = 1;
 
     /**
-     * Scalar multiplier for night speed with Hourglass integration.
+     * Scalar multiplier for night speed with Better Days integration.
      * For example, with a value of 2, the nighttime will pass twice as fast.
      * With a value of 0.5, the nighttime will pass twice as slow.
      */
-    public double hourglassNightSpeed = 1;
+    public double betterDaysNightSpeed = 1;
 }

@@ -28,9 +28,6 @@ repositories {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft}-${parent.props.forge}"
-    modImplementation "maven.modrinth:serene-seasons:${parent.props.sereneseasons_forge}"
-    modImplementation "maven.modrinth:glitchcore:${parent.props.glitchcore_forge}"
-    //modImplementation "curse.maven:hourglass-511172:${parent.props.hourglass}"
     //modImplementation "curse.maven:snow-real-magic-308663:${parent.props.snowrealmagic}"
     //modImplementation "curse.maven:kiwi-303657:${parent.props.kiwi}"
 

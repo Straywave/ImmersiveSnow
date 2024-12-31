@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(MinecraftServer.class)
 public interface MinecraftServerInvoker {
     @Invoker("haveTime")
-    public boolean hasTimeRemaining();
+    boolean snow$hasTimeRemaining();
 }

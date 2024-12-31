@@ -2,11 +2,9 @@ package straywave.minecraft.immersivesnow.neoforge;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.level.ChunkEvent;
 import straywave.minecraft.immersivesnow.Command;
 import straywave.minecraft.immersivesnow.ImmersiveSnowEvents;
@@ -25,13 +23,17 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 #endif
 public class EventListener {
     @SubscribeEvent
-    public static void onServerStarting(ServerStartingEvent event) {
-        ImmersiveSnowEvents.onServerStarting(event.getServer());
+    public static void onLevelLoad(LevelEvent.Load event) {
+        LevelAccessor level = event.getLevel();
+        if (level.isClientSide()) return;
+        ImmersiveSnowEvents.onLevelLoad((ServerLevel) level);
     }
 
     @SubscribeEvent
-    public static void onServerStopping(ServerStoppingEvent event) {
-        ImmersiveSnowEvents.onServerStopping(event.getServer());
+    public static void onLevelUnload(LevelEvent.Unload event) {
+        LevelAccessor level = event.getLevel();
+        if (level.isClientSide()) return;
+        ImmersiveSnowEvents.onLevelUnload((ServerLevel) level);
     }
 
     @SubscribeEvent

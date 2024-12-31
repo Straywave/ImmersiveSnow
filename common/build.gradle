@@ -1,5 +1,24 @@
 architectury { common("fabric", "forge", "neoforge") }
 
+repositories {
+    maven { url "https://maven.theillusivec4.top/" }
+    exclusiveContent {
+        forRepository { maven { url "https://cursemaven.com/" } }
+        filter { includeGroup "curse.maven" }
+    }
+    exclusiveContent {
+        forRepository { maven { url "https://api.modrinth.com/maven" } }
+        filter { includeGroup "maven.modrinth" }
+    }
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric}"
+
+    // These are only compile-time dependencies, their classes may or may not be absent/present at runtime.
+    modCompileOnly "maven.modrinth:betterdays:${parent.props.betterdays}"
+    modCompileOnly "maven.modrinth:serene-seasons:${parent.props.sereneseasons}"
+    modCompileOnly "maven.modrinth:glitchcore:${parent.props.glitchcore}"
+    compileOnly "com.illusivesoulworks.spectrelib:spectrelib-common:0.15.1+1.20.4"
+    compileOnly "com.electronwill.night-config:core:3.6.0"
 }

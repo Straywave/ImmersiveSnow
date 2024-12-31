@@ -19,12 +19,18 @@
       "straywave.minecraft.immersivesnow.fabric.Entrypoint"
     ]
   },
+  "mixins": [
+    "immersivesnow.mixins.json",
+    "immersivesnow.fabric.mixins.json"
+  ],
   "depends": {
     "fabric": ">=${fabricVersion}",
     "minecraft": "${minecraftVersion}"
   },
   "recommends": {
+    "betterdays": "*",
     "snowrealmagic": "*",
+    "sereneseasons": "*",
     "seasons": "*"
   },
   "custom": {

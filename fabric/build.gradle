@@ -22,8 +22,7 @@ repositories {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${parent.props.fabric}+${rootProject.minecraft}"
-    modImplementation "maven.modrinth:serene-seasons:${parent.props.sereneseasons_fabric}"
-    modImplementation "maven.modrinth:glitchcore:${parent.props.glitchcore_fabric}"
+    modImplementation "maven.modrinth:fabric-seasons:${parent.props.fabric_seasons}"
     //modApi "curse.maven:snow-real-magic-fabric-560441:${parent.props.snowrealmagicfabric}"
     //modApi "curse.maven:kiwi-fabric-549404:${parent.props.kiwifabric}"
 

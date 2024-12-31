@@ -22,8 +22,6 @@ repositories {
 
 dependencies {
     neoForge "net.neoforged:neoforge:${parent.props.neoforge}"
-    modImplementation "maven.modrinth:serene-seasons:${parent.props.sereneseasons_neoforge}"
-    modImplementation "maven.modrinth:glitchcore:${parent.props.glitchcore_neoforge}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive false }

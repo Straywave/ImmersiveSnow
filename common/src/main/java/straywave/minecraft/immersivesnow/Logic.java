@@ -10,14 +10,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import straywave.minecraft.immersivesnow.hook.SereneSeasonsHook;
 import straywave.minecraft.immersivesnow.hook.SnowRealMagicHook;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Logic {
+    private static final boolean SERENE_SEASONS = ModHooks.sereneSeasonsLoaded();
     private static final boolean SNOW_REAL_MAGIC = ModHooks.snowRealMagicLoaded();
-    private static final boolean SEASON_MOD = ModHooks.seasonModLoaded();
 
     /**
      * Iterates over all (X, Z) combinations within a chunk and runs snow recalculation logic on them.
@@ -65,7 +63,7 @@ public class Logic {
             Utils.setBlock(level, topPos, Blocks.SNOW.defaultBlockState());
         } else if (biome.shouldFreeze(level, blockPos, false) && !blockState.is(Blocks.ICE)) {
             Utils.setBlock(level, blockPos, Blocks.ICE.defaultBlockState());
-        } else if (SNOW_REAL_MAGIC && ModHooks.coldEnoughToSnow(level, biome, topPos)) {
+        } else if (SNOW_REAL_MAGIC && coldEnoughToSnow(level, biome, topPos)) {
             if (SnowRealMagicHook.canReplaceBlock(topState) && !SnowRealMagicHook.canMelt(topState))
                 SnowRealMagicHook.replaceBlock(level, topPos, topState);
             else if (SnowRealMagicHook.canReplaceBlock(blockState) && !SnowRealMagicHook.canMelt(blockState))
@@ -91,11 +89,20 @@ public class Logic {
     }
 
     private static boolean shouldMelt(Level level, Biome biome, BlockPos pos) {
-        if (SEASON_MOD) return ModHooks.shouldMelt(level, biome, pos);
+        if (SERENE_SEASONS) return SereneSeasonsHook.shouldMelt(level, biome, pos);
         #if MC_1_21_4
         return biome.warmEnoughToRain(pos, level.getSeaLevel()) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
         #else
         return biome.warmEnoughToRain(pos) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        #endif
+    }
+
+    private static boolean coldEnoughToSnow(Level level, Biome biome, BlockPos pos) {
+        if (SERENE_SEASONS) return SereneSeasonsHook.coldEnoughToSnow(level, biome, pos);
+        #if MC_1_21_4
+        return biome.coldEnoughToSnow(pos, level.getSeaLevel()) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
+        #else
+        return biome.coldEnoughToSnow(pos) || level.getBrightness(LightLayer.BLOCK, pos) > 11;
         #endif
     }
 }

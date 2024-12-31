@@ -15,7 +15,7 @@ import java.nio.file.Path;
 public class Configuration {
     public static ConfigurationData data = new ConfigurationData();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final File PATH = getConfigDir().resolve("ImmersiveAtmosphere.json").toFile();
+    private static final File PATH = getConfigDir().resolve("ImmersiveSnow.json").toFile();
 
     @ExpectPlatform
     public static Path getConfigDir() {
