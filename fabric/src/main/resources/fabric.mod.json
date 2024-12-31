@@ -20,7 +20,7 @@
     ]
   },
   "mixins": [
-    "immersivesnow.mixins.json",
+    "immersivesnow.mixins.json"
   ],
   "depends": {
     "fabric": ">=${fabricVersion}",
