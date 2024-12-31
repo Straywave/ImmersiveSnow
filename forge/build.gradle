@@ -5,7 +5,7 @@ loom {
     mixin { defaultRefmapName = "immersivesnow.forge.refmap.json" }
     forge {
         // mixinConfig "immersivesnow.forge.mixins.json"
-        // mixinConfig "immersivesnow.mixins.json"
+        mixinConfig "immersivesnow.mixins.json"
     }
 }
 

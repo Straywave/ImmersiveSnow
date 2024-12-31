@@ -19,6 +19,9 @@
       "straywave.minecraft.immersivesnow.fabric.Entrypoint"
     ]
   },
+  "mixins": [
+    "immersivesnow.mixins.json",
+  ],
   "depends": {
     "fabric": ">=${fabricVersion}",
     "minecraft": "${minecraftVersion}"
