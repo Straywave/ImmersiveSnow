@@ -23,7 +23,9 @@ dependencies {
     compileOnly "com.illusivesoulworks.spectrelib:spectrelib-common:0.15.1+1.20.4"
     compileOnly "com.electronwill.night-config:core:3.6.0"
 
-    modCompileOnly "maven.modrinth:snow-real-magic:${parent.props.snowrealmagic}"
-    modCompileOnly "maven.modrinth:kiwi:${parent.props.kiwi}"
-    modCompileOnly "net.fabricmc.fabric-api:fabric-api:${parent.props.fabric}+${rootProject.minecraft}"
+    if (rootProject.minecraft != "1.21.4") {
+        modCompileOnly "maven.modrinth:snow-real-magic:${parent.props.snowrealmagic}"
+        modCompileOnly "maven.modrinth:kiwi:${parent.props.kiwi}"
+        modCompileOnly "net.fabricmc.fabric-api:fabric-api:${parent.props.fabric}+${rootProject.minecraft}"
+    }
 }
