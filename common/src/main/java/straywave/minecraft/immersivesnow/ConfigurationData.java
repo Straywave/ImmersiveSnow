@@ -25,7 +25,7 @@ public class ConfigurationData {
      * Controls whether the Better Days integration with Serene Seasons/Fabric Seasons is enabled.
      * NOTE: It will overwrite Hourglass daySpeed and nightSpeed settings!
      */
-    public boolean enableBetterDaysChangingDayNightCycle = true;
+    public boolean enableBetterDaysChangingDayNightCycle = false;
 
     /**
      * Scalar multiplier for day speed with Better Days integration.
